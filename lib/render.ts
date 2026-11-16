@@ -237,7 +237,7 @@ function drawWatermark(c: Ctx, scene: Scene, W: number, H: number) {
   if (!wm || !text) return
   const k = W / 1920, size = Math.max(12, 30 * k), margin = Math.max(10, 0.03 * W)
   c.save()
-  c.font = `600 ${size}px Inter, system-ui, sans-serif`; c.textBaseline = 'bottom'
+  c.font = `600 ${size}px 'Inter Variable', Inter, system-ui, sans-serif`; c.textBaseline = 'bottom'
   c.textAlign = wm.position === 'left' ? 'left' : wm.position === 'right' ? 'right' : 'center'
   const x = wm.position === 'left' ? margin : wm.position === 'right' ? W - margin : W / 2
   c.globalAlpha = Math.max(0.05, Math.min(1, wm.opacity / 100))
