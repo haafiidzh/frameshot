@@ -2,7 +2,7 @@
 import { useCallback, useEffect, useState } from 'react'
 
 export type ThemeChoice = 'system' | 'light' | 'dark'
-export const THEME_KEY = 'frameshot-theme'
+export const THEME_KEY = 'franneshot-theme'
 
 const read = (): ThemeChoice => {
   try { const v = window.localStorage.getItem(THEME_KEY); return v === 'light' || v === 'dark' ? v : 'system' } catch { return 'system' }

@@ -1,6 +1,7 @@
 'use client'
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
-import { ArrowUp, Clipboard, Command as CommandIcon, LayoutTemplate, Loader2, Redo2, RotateCcw, SlidersHorizontal, Sparkles, Undo2, UploadCloud, Layers } from 'lucide-react'
+import Image from 'next/image'
+import { ArrowUp, Clipboard, Command as CommandIcon, LayoutTemplate, Loader2, Redo2, RotateCcw, SlidersHorizontal, Sparkles, Undo2, UploadCloud } from 'lucide-react'
 import { useEditor } from '@/lib/useEditor'
 import { bentoRects, renderScene, slotRects } from '@/lib/render'
 import { assignSlots, defaultBento, maxExportScale, panFocus, setCount, setSlotMedia, setSlotOffset, slotCount, slotMediaIds, slotOffset, storedMediaIds, switchFamily } from '@/lib/scene'
@@ -305,7 +306,7 @@ export default function Editor() {
     setBusy(true)
     try {
       const blob = await makeBlob()
-      const a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = `frameshot-${exportScale}x.png`; a.click()
+      const a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = `franneshot-${exportScale}x.png`; a.click()
       setTimeout(() => URL.revokeObjectURL(a.href), 2000)
       say(`Saved a ${scene.canvas.w * exportScale} × ${scene.canvas.h * exportScale} PNG.`, 'success')
     } catch (e) { say(e instanceof Error ? e.message : 'Export failed.', 'error', { label: 'Try again', run: download }) } finally { setBusy(false) }
@@ -352,7 +353,7 @@ export default function Editor() {
       <input ref={mediaInput} type="file" accept="image/*,video/*" tabIndex={-1} className="sr-only" aria-label="Choose an image file" data-testid="media-input" multiple={isBento || count > 1} onChange={(e) => { const fl = Array.from(e.target.files ?? []); if (isBento) { setSelectedCell(pendingCell.current); void takeBento(fl, pendingCell.current) } else if (count > 1) { setSelectedSlot(pendingCell.current); void takeSlots(fl, pendingCell.current) } else void takeFile(fl[0], 'mockup'); e.target.value = '' }} />
       <input ref={bgInput} type="file" accept="image/*" tabIndex={-1} className="sr-only" aria-label="Choose a backdrop photo" data-testid="bg-input" onChange={(e) => { void takeFile(e.target.files?.[0], 'background'); e.target.value = '' }} />
 
-      <div className={cx(chip, 'hidden md:flex')}><button ref={brandBtn} type="button" aria-haspopup="dialog" aria-expanded={menuOpen2} onClick={() => setMenuOpen2((o) => !o)} className="flex h-full w-full items-center gap-2 rounded-lg px-3 hover:bg-surface-sunken"><Layers aria-hidden size={18} /><span className="text-base font-semibold">Frameshot</span></button></div>
+      <div className={cx(chip, 'hidden md:flex')}><button ref={brandBtn} type="button" aria-haspopup="dialog" aria-expanded={menuOpen2} onClick={() => setMenuOpen2((o) => !o)} className="flex h-full w-full items-center gap-2 rounded-lg px-3 hover:bg-surface-sunken"><Image src="/logo.svg" alt="" aria-hidden width={20} height={20} className="h-5 w-5" unoptimized /><span className="text-base font-semibold">Franneshot</span></button></div>
 
       <div className="order-1 flex h-header shrink-0 items-center justify-start gap-2 md:order-none md:justify-center">
         <div className={cx(chip, 'gap-1 px-2')} role="toolbar" aria-label="Editor actions">

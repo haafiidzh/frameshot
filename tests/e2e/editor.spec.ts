@@ -273,7 +273,7 @@ test('command palette: layout command switches to bento and nothing-found state 
 
 test('dark theme: chosen from the menu, remembered after reload, and still accessible', async ({ page }) => {
   await open(page)
-  await page.getByRole('button', { name: 'Frameshot' }).click()
+  await page.getByRole('button', { name: 'Franneshot' }).click()
   await page.getByRole('radiogroup', { name: 'Appearance' }).getByRole('radio', { name: 'Dark' }).click()
   await expect(page.locator('html')).toHaveAttribute('data-theme', 'dark')
   await page.keyboard.press('Escape')
@@ -283,7 +283,7 @@ test('dark theme: chosen from the menu, remembered after reload, and still acces
   expect(bg).toBe('rgb(16, 16, 18)')
   const v = (await new AxeBuilder({ page }).withTags(['wcag2a', 'wcag2aa', 'wcag21aa', 'wcag22aa']).analyze()).violations.map((x) => `${x.id}: ${x.nodes[0]?.target.join(' ')}`)
   expect(v).toEqual([])
-  await page.getByRole('button', { name: 'Frameshot' }).click()
+  await page.getByRole('button', { name: 'Franneshot' }).click()
   await page.getByRole('radiogroup', { name: 'Appearance' }).getByRole('radio', { name: 'System' }).click()
   await expect(page.locator('html')).not.toHaveAttribute('data-theme', /.+/)
 })
@@ -299,7 +299,7 @@ test('performance mode lowers the preview size, not the export', async ({ page }
   await withImage(page)
   const w = () => page.getByTestId('stage').evaluate((c) => (c as HTMLCanvasElement).width)
   expect(await w()).toBe(1400)
-  await page.getByRole('button', { name: 'Frameshot' }).click()
+  await page.getByRole('button', { name: 'Franneshot' }).click()
   await page.getByRole('switch', { name: /Performance mode/ }).click(); await page.keyboard.press('Escape')
   await expect.poll(w).toBe(640)
   const dl = page.waitForEvent('download'); await page.getByTestId('export').click()
@@ -309,7 +309,7 @@ test('performance mode lowers the preview size, not the export', async ({ page }
 
 test('What is new opens as a dialog, Esc closes it and focus goes back', async ({ page }) => {
   await open(page)
-  const brand = page.getByRole('button', { name: 'Frameshot' })
+  const brand = page.getByRole('button', { name: 'Franneshot' })
   await brand.click(); await page.getByRole('button', { name: 'What is new' }).click()
   await expect(page.getByRole('dialog', { name: 'What is new' })).toBeVisible()
   await expect(page.getByText('Bento layouts')).toBeVisible()
@@ -368,7 +368,7 @@ test.describe('accessibility of the new dialogs', () => {
   test('command palette and what is new', async ({ page }) => {
     await open(page)
     await page.keyboard.press('Control+k'); expect(await scan(page)).toEqual([]); await page.keyboard.press('Escape')
-    await page.getByRole('button', { name: 'Frameshot' }).click(); expect(await scan(page)).toEqual([])
+    await page.getByRole('button', { name: 'Franneshot' }).click(); expect(await scan(page)).toEqual([])
     await page.getByRole('button', { name: 'What is new' }).click(); expect(await scan(page)).toEqual([])
   })
   test('canvas tab with effects and watermark filled in, in dark mode', async ({ browser }) => {
